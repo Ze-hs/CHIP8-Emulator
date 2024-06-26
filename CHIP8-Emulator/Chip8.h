@@ -7,49 +7,43 @@
 
 class Chip8 {
 public:
-	std::uint16_t opcode{};
+	std::uint16_t opcode{};	// opcode 
+	std::int16_t i{};		// Index register
+	std::int16_t pc{};		// Program Counter
+	std::uint16_t sp{};		// Stack Counter
 
-	//Index register
-	std::int16_t i{};
+	std::array<std::uint16_t, 16 > stack{};		// Memory Stack
+	std::array<std::uint8_t, 4096 >memory{};	// 4K memory
+	std::array<std::uint8_t, 16 > registers{};	// Registers
+	std::array<std::uint8_t, 64 * 32 > gfx{};	// Screen buufer array
+	std::array<std::uint8_t, 80> fontset{};		// Fontset array
+	std::array<bool, 16 >key{};					// Keypad array
 
-	//Program Counter
-	std::int16_t pc{};
+	std::uint8_t delay_timer{};		
+	std::uint8_t sound_timer{};		
 
-	//Stack Counter
-	std::uint16_t sp{};
+	std::mt19937 mt{}; 		// Random number
+	std::uint8_t pixel{};	//
 
-	std::array<std::uint16_t, 16 > stack{};
+	//Flags
+	bool drawFlag{};
 
-	//4K memory
-	std::array<std::uint8_t, 4096 >memory{};
+	//Helper values extracted from Opcode
+	std::uint8_t N{};
+	std::uint8_t NN{};
+	std::uint16_t NNN{};
 
-	// 16 registers
-	std::array<std::uint8_t, 16 >V{};
+	std::uint8_t X{};
+	std::uint8_t Y{};
 
-	// Graphics 
-	std::array<std::uint8_t, 64 * 32 > gfx{};
-
-	std::uint8_t delay_timer{};
-	std::uint8_t sound_timer{};
-
-	//random number
-	std::mt19937 mt{};
-
-	//Keypad
-	std::array<bool, 16 >key{};
-
-	std::array<std::uint8_t, 80> fontset{};
-
-	//Draw flag
-	bool drawFlag{true};
-	bool clearFlag{false};
-
-	bool firstDraw{ false };
+	bool isKeyPressed{ false }; // Checks if key has been pressed
+	int keyPressed{ 0 };		// Value of key pressed
 
 	Chip8();
 	void cycle();
 	void initialize();
-
+	void fetch();
+	void execute();
 	bool loadRom(std::string);
 	std::uint8_t genRandom(int start, int end);
 };
