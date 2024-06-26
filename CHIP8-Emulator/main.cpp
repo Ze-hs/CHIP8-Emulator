@@ -6,9 +6,7 @@
 int main(int argc, char* args[]) {
 	GUI screen{};
 
-
-	if (!screen.init())
-	{
+	if (!screen.init()) {
 		return 0;
 	}
 
@@ -32,14 +30,12 @@ int main(int argc, char* args[]) {
 		const double time_elapsed = (double)((end_time - start_time) * 1000) / SDL_GetPerformanceFrequency();
 		SDL_Delay(16.67f > time_elapsed ? 16.67f - time_elapsed : 0);
 
-		if (emulator.drawFlag)
-		{
+		if (emulator.drawFlag) {
 			screen.clearScreen();
 			screen.drawGraphics(emulator.gfx);
 		}
 		screen.update();
 	}
-
 
 	screen.close();
 	return 0;

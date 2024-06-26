@@ -10,10 +10,8 @@ class GUI
 private:
 	const int SCREEN_WIDTH = 640;
 	const int SCREEN_HEIGHT = 320;
-
-
+    
 public:
-
 	bool quit{};
 	SDL_Event e{};
 	//The window we'll be rendering to

@@ -48,7 +48,6 @@ void Chip8::initialize() {
 
 	//Load fontset
 	std::copy(fontset.begin(), fontset.end(), memory.begin());
-
 }
 
 bool Chip8::loadRom(std::string file) {
@@ -318,13 +317,13 @@ void Chip8::execute() {
 			memory[i + 1] = registers[X] / 10 % 10;
 			memory[i + 2] = registers[X] % 10;
 			break;
-		case 0x0055: // Store the values of registers V0 to VX inclusive in memory starting at address I is set to I + X + 1 after operation²
+		case 0x0055: // Store the values of registers V0 to VX inclusive in memory starting at address I is set to I + X + 1 after operationï¿½
 			for (int index = 0; index <= X; ++index) {
 				memory[i + index] = registers[index];
 			}
 			i += 16;
 			break;
-		case 0x0065: // Fill registers V0 to VX inclusive with the values stored in memory starting at address I I is set to I + X + 1 after operation²
+		case 0x0065: // Fill registers V0 to VX inclusive with the values stored in memory starting at address I I is set to I + X + 1 after operationï¿½
 			for (int index = 0; index <= X; ++index) {
 				registers[index] = memory[i + index];
 			}
@@ -334,7 +333,6 @@ void Chip8::execute() {
 		default:
 			std::cerr <<std::hex << "Corresponding Opcode Not Found";
 		}
-
 	}
 }
 

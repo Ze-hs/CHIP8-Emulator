@@ -6,23 +6,20 @@
 
 bool GUI::init()
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
-	{
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
 		std::cerr << "Could not initialize SDL, SDL Error:  " << SDL_GetError() << "\n";
 		return false;
 	}
 
 	gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if (gWindow == NULL)
-	{
+	if (gWindow == NULL) {
 		std::cerr << "Window could not be created! SDL Error:  " << SDL_GetError() << "\n";
 		return false;
 	}
 
 	//Create renderer for window
 	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
-	if (gRenderer == NULL)
-	{
+	if (gRenderer == NULL) {
 		std::cerr << "Renderer could not be created! SDL Error:  " << SDL_GetError() << "\n";
 		return false;
 	}
@@ -56,12 +53,10 @@ void GUI::update() {
 
 void GUI::handleInput(Chip8& emulator) {
 	while (SDL_PollEvent(&e) != 0) {
-		if (e.type == SDL_QUIT)
-		{
+		if (e.type == SDL_QUIT) {
 			quit = true;
 		}
-		else if (e.type == SDL_KEYDOWN)
-		{
+		else if (e.type == SDL_KEYDOWN) {
 			//Select surfaces based on key press
 			switch (e.key.keysym.sym)
 			{
@@ -85,10 +80,8 @@ void GUI::handleInput(Chip8& emulator) {
 				break;
 			}
 		}
-		else if (e.type == SDL_KEYUP)
-		{
-			switch (e.key.keysym.sym)
-			{
+		else if (e.type == SDL_KEYUP) {
+			switch (e.key.keysym.sym) {
 				//Select surfaces based on key press
 			case SDLK_1: emulator.key[1] = false; break;
 			case SDLK_2: emulator.key[2] = false; break;
@@ -115,12 +108,9 @@ void GUI::handleInput(Chip8& emulator) {
 }
 
 void GUI::drawGraphics(const std::array<std::uint8_t, 2048>& gfx) {
-	for (int row = 0; row < 32; row++)
-	{
-		for (int col = 0; col < 64; col++)
-		{
-			if (gfx[row * 64 + col] != 0)
-			{
+	for (int row = 0; row < 32; row++) {
+		for (int col = 0; col < 64; col++) {
+			if (gfx[row * 64 + col] != 0) {
 				SDL_Rect fillRect = { col * 10, row * 10,10 ,10 };
 				SDL_SetRenderDrawColor(gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 				SDL_RenderFillRect(gRenderer, &fillRect);
