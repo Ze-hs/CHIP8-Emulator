@@ -14,7 +14,7 @@ int main(int argc, char* args[]) {
 
 	Chip8 emulator{};
 	emulator.initialize();
-	emulator.loadRom("pong.rom");
+	emulator.loadRom("IBM.rom");
 
 	//Main loop
 	while (!screen.quit)
